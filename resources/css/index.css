@@ -1,0 +1,57 @@
+#court-logo {
+    background: rgb(248, 249, 250);
+    height: 12vh;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.65);
+    height: 100vh;
+    width: 100%;
+    position: absolute; 
+}
+
+h5, p {
+    margin-bottom: 0px;
+}
+
+#nav-bar {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 2;
+    background: rgba(245, 245, 245, 0.9);
+}
+
+.modify-item {
+    width: 25%;
+    text-align: center;
+}
+
+.card {
+    width: auto; 
+    margin: 12px; 
+    display: flex; 
+    flex-direction: row;
+}
+
+.img-dir {
+    width: 135px; 
+    margin: auto;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    margin: 0;
+}
+
+a.btn.btn-primary {
+    color: rgb(255, 255, 255);
+}
+
+.btn-primary {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+}
