@@ -1,4 +1,4 @@
-const NUM_OF_ITEMS = 4
+const NUM_OF_ITEMS = 4;
 
 const items = [
     'Home',

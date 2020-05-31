@@ -36,7 +36,9 @@ h5, p {
 
 .img-dir {
     width: 135px; 
-    margin: auto;
+    height: 135px;
+    display: flex;
+    justify-content: center;
 }
 
 .card-body {
@@ -54,4 +56,9 @@ a.btn.btn-primary {
 .btn-primary {
     background-color: #dc3545; 
     border-color: #dc3545;
+}
+
+.modify-btn {
+    position: absolute;
+    bottom: 10px;
 }

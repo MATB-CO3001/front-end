@@ -1,10 +1,4 @@
-const NUM_OF_COURTS = 5;
-
-const courtInfo = {
-    name: 'Court',
-    description: 'Some description',
-    image: 'resources/image/1.jpg'
-};
+import "./dummyData";
 
 const carouseIndicator = document.getElementsByClassName('carousel-indicators');
 const carouseInner = document.getElementsByClassName('carousel-inner');
