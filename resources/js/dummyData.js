@@ -6,17 +6,11 @@ const courtInfo = {
     image: 'resources/image/1.jpg'
 };
 
-const NUM_OF_FOODS_EACH_COURT = [
-    {
-        court1: 2
-    },
-    {
-        court2: 1
-    },
-    {
-        court3: 1
-    }
-];
+const NUM_OF_FOODS_EACH_COURT = {
+    COURT0: 4,
+    COURT1: 3,
+    COURT2: 4
+};
 
 const foodInfo = [
     {

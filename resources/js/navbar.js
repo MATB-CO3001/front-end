@@ -1,6 +1,9 @@
 const NUM_OF_ITEMS = 4;
 
 const items = [
+    {
+        item: 'Home',
+    },
     'Home',
     'Cart',
     'History',

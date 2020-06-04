@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 #court-logo {
     background: rgb(248, 249, 250);
     height: 12vh;
@@ -22,14 +26,37 @@ h5, p {
     background: rgba(245, 245, 245, 0.9);
 }
 
+.nav-link {
+    padding: 0.1rem;
+    font-size: 0.7em;
+    color: #6c757d;
+}
+
+.active .nav-link {
+    color: #007bff;
+}
+
+.bi {
+    font-size: 1.2em;
+    color: #6c757d;
+}
+
+.active .bi {
+    color: #007bff;
+}
+
 .modify-item {
     width: 25%;
     text-align: center;
 }
 
+.food-list {
+    margin: 42px 12px;
+}
+
 .card {
     width: auto; 
-    margin: 12px; 
+    margin: 12px 0; 
     display: flex; 
     flex-direction: row;
 }
