@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+.tittle{
+	margin-bottom: 10px;
+}
+.login{
+	margin: 0px auto;
+	margin-top: 30px;
+	height: auto;
+}
+.col-sm-4{
+	background-color: red;
+	border-radius: 20px 0px 0px 20px;
+	
+}
+.col-sm-8{
+	padding-top: 50px;
+	border-radius: 0px 20px 20px 0px;
+}
+form a{
+	color: red;
+}
+.container .menu{
+	background-color: darkgrey;
+}
+ul li{
+	border-right: 1px solid #e1e1e1;
+}
+ul li:hover{
+	background-color: red;
+}
+ul li a{
+	color: white;
+}
+ul li a:hover{
+	color: black !important;
+}
