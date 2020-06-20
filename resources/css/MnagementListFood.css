@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+.header{
+	margin: 0px auto;
+	background-color: black;
+	color: white;
+	height: 80px;
+	line-height: 80px;
+}
+.content{
+	margin: 0px auto;
+}
+.content .left{
+	border-right: 1px solid black;
+}
