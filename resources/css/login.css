@@ -1,37 +1,88 @@
 @charset "utf-8";
 /* CSS Document */
+
 .tittle{
 	margin-bottom: 10px;
 }
 .login{
 	margin: 0px auto;
 	margin-top: 30px;
-	height: auto;
 }
 .col-sm-4{
 	background-color: red;
 	border-radius: 20px 0px 0px 20px;
+	height: auto;
 	
 }
 .col-sm-8{
 	padding-top: 50px;
 	border-radius: 0px 20px 20px 0px;
+	height: auto;
 }
-form a{
-	color: red;
+#nav-bar {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 2;
+    background: rgba(245, 245, 245, 0.9);
 }
-.container .menu{
-	background-color: darkgrey;
+.nav-link {
+    padding: 0.1rem;
+    font-size: 0.7em;
+    color: #6c757d;
 }
-ul li{
-	border-right: 1px solid #e1e1e1;
+.active .nav-link {
+    color: #007bff;
 }
-ul li:hover{
-	background-color: red;
+.bi {
+    font-size: 1.2em;
+    color: #6c757d;
 }
-ul li a{
-	color: white;
+
+.active .bi {
+    color: #007bff;
 }
-ul li a:hover{
-	color: black !important;
+.modify-item {
+    width: 25%;
+    text-align: center;
+}
+
+.food-list {
+    margin: 42px 12px;
+}
+
+.card {
+    width: auto; 
+    margin: 12px 0; 
+    display: flex; 
+    flex-direction: row;
+}
+
+.img-dir {
+    width: 135px; 
+    height: 135px;
+    display: flex;
+    justify-content: center;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    margin: 0;
+}
+
+a.btn.btn-primary {
+    color: rgb(255, 255, 255);
+}
+
+.btn-primary {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+}
+
+.modify-btn {
+    position: absolute;
+    bottom: 10px;
 }
