@@ -1,91 +1,91 @@
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 #court-logo {
-    background: rgb(248, 249, 250);
-    height: 12vh;
+  background: rgb(248, 249, 250);
+  height: 12vh;
 }
 
 .overlay {
-    background-color: rgba(0, 0, 0, 0.65);
-    height: 100vh;
-    width: 100%;
-    position: absolute; 
+  background-color: rgba(0, 0, 0, 0.65);
+  height: 100vh;
+  width: 100%;
+  position: absolute; 
 }
 
 h5, p {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 #nav-bar {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    z-index: 2;
-    background: rgba(245, 245, 245, 0.9);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 2;
+  background: rgba(245, 245, 245, 0.9);
 }
 
 .nav-link {
-    padding: 0.1rem;
-    font-size: 0.7em;
-    color: #6c757d;
+  padding: 0.1rem;
+  font-size: 0.7em;
+  color: #6c757d;
 }
 
 .active .nav-link {
-    color: #007bff;
+  color: #007bff;
 }
 
 .bi {
-    font-size: 1.2em;
-    color: #6c757d;
+  font-size: 1.2em;
+  color: #6c757d;
 }
 
 .active .bi {
-    color: #007bff;
+  color: #007bff;
 }
 
 .modify-item {
-    width: 25%;
-    text-align: center;
+  width: 25%;
+  text-align: center;
 }
 
 .food-list {
-    margin: 42px 12px;
+  margin: 42px 12px;
 }
 
 .card {
-    width: auto; 
-    margin: 12px 0; 
-    display: flex; 
-    flex-direction: row;
+  width: auto; 
+  margin: 12px 0; 
+  display: flex; 
+  flex-direction: row;
 }
 
 .img-dir {
-    width: 135px; 
-    height: 135px;
-    display: flex;
-    justify-content: center;
+  width: 135px; 
+  height: 135px;
+  display: flex;
+  justify-content: center;
 }
 
 .card-body {
-    padding: 10px;
+  padding: 10px;
 }
 
 .card-title {
-    margin: 0;
+  margin: 0;
 }
 
 a.btn.btn-primary {
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 
 .btn-primary {
-    background-color: #dc3545; 
-    border-color: #dc3545;
+  background-color: #dc3545; 
+  border-color: #dc3545;
 }
 
 .modify-btn {
-    position: absolute;
-    bottom: 10px;
+  position: absolute;
+  bottom: 10px;
 }

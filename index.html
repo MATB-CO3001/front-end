@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/index.css" />
+    <link rel="stylesheet" href="resources/css/cart.css" />
 
     <title>Smart Food Court System - MATB</title>
   </head>
@@ -28,6 +29,18 @@
       </a>
     </div>
     <div id="foods-container"></div>
+    <!------------------ Cart -------------------------->
+    <div class="container-fluid cart">
+      <h2>Your Cart</h2>
+      <div class="cart-row">
+        <span class="cart-item cart-header cart-column">ITEM</span>
+        <span class="cart-price cart-header cart-column">PRICE</span>
+        <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+      </div>
+      <div id="cart-container"></div>  
+      <div id="total">Total:<span class="cart-total-price">$69</span></div>
+      <a class="btn btn-primary purchase-btn">Purchase</a>
+    </div>
     <div id="nav-bar">
       <ul class="nav justify-content-center">
         <li class="nav-item modify-item active">
@@ -42,7 +55,7 @@
             <path fill-rule="evenodd" d="M11.354 5.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z"/>
             <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
           </svg>
-          <a class="nav-link" href="cart.html">Cart</a>
+          <a class="nav-link cart" >Cart</a>
         </li>
         <li class="nav-item modify-item">
           <svg class="bi bi-clock-history" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -71,6 +84,7 @@
     <script src="resources/js/dummyData.js"></script> 
     <script src="resources/js/courtsList.js"></script>
     <script src="resources/js/foodsList.js"></script>
+    <script src="resources/js/cart.js"></script> 
     <script src="resources/js/disableAutoScrollingCarousel.js"></script>
   </body>
 </html>
