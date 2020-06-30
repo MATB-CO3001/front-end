@@ -1,0 +1,50 @@
+
+.mySlides{
+	display: none;
+}
+.login{
+	width: 500px;
+	height: 300px;
+}
+.enter-login{
+	width: 300px;
+	height: auto;
+	border: 1px solid #167bff;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.enter-login i{
+	vertical-align: middle;
+}
+.enter-login input{
+	border: none;
+	outline: none;
+	height: 30px;
+	width: 200px;
+	padding-left: 20px;
+}
+.register{
+	width: 500px;
+	height: 450px;
+}
+.enter-register{
+	width: 300px;
+	height: auto;
+	border: 1px solid #167bff;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.enter-register i{
+	vertical-align: middle;
+}
+.enter-register input{
+	border: none;
+	outline: none;
+	height: 30px;
+	width: 200px;
+	padding-left: 20px;
+}
