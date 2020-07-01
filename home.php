@@ -13,7 +13,7 @@
 <!--	START HEADER-->
 	<div id="header" class="w3-container"> 
 		<div class="w3-bar w3-blue">
-			<div class="w3-bar-item">
+			<div class="w3-bar-item w3-myfont">
 				<a href="#" class="w3-button w3-large">BKSFCS</a>
 			</div>
 			<div class="w3-bar-item">
@@ -31,6 +31,16 @@
 			</div>
 			<div class="w3-bar-item w3-right">
 				<a href="#" class="w3-button w3-large" onClick="openModalLogin()">Đăng nhập</a>
+			</div>
+			<div class="w3-bar-item w3-dropdown-hover w3-right">
+				<button class="w3-button w3-large">Hỗ trợ khách hàng
+					<i class="fa fa-angle-down"></i>
+				</button>
+				<div class="w3-dropdown-content w3-bar-block">
+					<a href="#" class="w3-bar-item w3-button">Các câu hỏi thường gặp</a>
+					<a href="#" class="w3-bar-item w3-button">Hướng dẫn đặt hàng</a>
+					<a href="#" class="w3-bar-item w3-button">Phương thức thanh toán</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -57,7 +67,7 @@
 						<span style="font-size: 0.9em">Lịch sử</span>
 					</div>
 				</a>
-				<a href="#"  class="w3-bar-item w3-button">
+				<a href="#"  class="w3-bar-item w3-button" onClick="openModalLogin()">
 					<div id="login">
 						<i class="fa fa-user w3-xxlarge w3-padding"></i>
 						<span style="font-size: 0.9em">Đăng nhập</span>
@@ -76,28 +86,34 @@
 			</div>
 			<div>Hiển thị các món ăn</div>
 		</div>
-		<div id="right" class="w3-col m2 w3-panel w3-card-4 w3-container">
-			<div class="w3-blue" style="font-size: 1.2em;text-align: center">Menu chính</div>
-			<a href="#" class="w3-bar-item w3-button">
-			<i class="fa fa-shopping-basket w3-large w3-padding"></i>	
-				Cơm
-			</a>
-			<a href="#" class="w3-bar-item w3-button">
-			<i class="fa fa-shopping-basket w3-large w3-padding"></i>	
-				Bún-Phở
-			</a>
-			<a href="#" class="w3-bar-item w3-button">
-			<i class="fa fa-shopping-basket w3-large w3-padding"></i>	
-				Nước giải khát
-			</a>
+		<div id="right">
+			<div class="w3-col m2 w3-panel w3-card-4 w3-container w3-blue" style="text-align: center;font-size: 1.2em">
+			Menu Chính
+			</div>
+			<div class="w3-col m2 w3-bar-block w3-container w3-border w3-round w3-card-4">
+				<a href="#" class="w3-bar-item w3-button w3-white">
+					<i class="fa fa-shopping-basket w3-large"></i>	
+					Cơm
+				</a>
+				<a href="#" class="w3-bar-item w3-button">
+					<i class="fa fa-shopping-basket w3-large"></i>	
+					Bún-Phở
+				</a>
+				<a href="#" class="w3-bar-item w3-button">
+					<i class="fa fa-shopping-basket w3-large"></i>	
+					Nước giải khát
+				</a>
+			</div>
+			
 		</div>
 	</div>
 <!--	END CONTENT-->
-	<div id="footer" class="w3-container"></div>
 	<?php
+	include "footer.php";
 	include "login.php";
 	include "register.php";
 	?>
 </body>
 	<script src="./resources/js/home.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </html>

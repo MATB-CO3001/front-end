@@ -1,4 +1,6 @@
-
+.w3-myfont {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
 .mySlides{
 	display: none;
 }
@@ -47,4 +49,10 @@
 	height: 30px;
 	width: 200px;
 	padding-left: 20px;
+}
+#left-middle .footer-about ul li a{
+	text-decoration: none;
+}
+#left-middle .footer-about ul li a:hover{
+	color: coral;
 }
