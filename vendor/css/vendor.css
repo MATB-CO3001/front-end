@@ -1,0 +1,72 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
+#container{
+  position: relative;
+  max-width: 1080px;
+}
+
+.sidenav {
+  width: 200px;
+  position: absolute;
+  z-index: 1;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 8px 0;
+  float: left;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #2196F3;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #064579;
+}
+
+.sidenav a:hover {
+  color: #01228f;
+}
+
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 16px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+  position: relative;
+
+}
+
+/*
+  Food edit
+*/
+
+#food-edit-container {
+  position: absolute;
+  z-index: 999;
+  width: 400px;
+  padding: 40px;
+  background-color: #f1f1f1;
+}
+
+.form-group .control-label {
+  max-width: 600px;
+}
+
+.form-group .col-lg-8 {
+  max-width: 600px;
+}
+
+.btn-right {
+  
+  float: right;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
