@@ -89,3 +89,8 @@ a.btn.btn-primary {
   position: absolute;
   bottom: 10px;
 }
+
+.btn:hover {
+  background-color: #dc3545; 
+  border-color: #dc3545;
+}
