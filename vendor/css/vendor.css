@@ -42,7 +42,7 @@ body {
   font-size: 16px; /* Increased text to enable scrolling */
   padding: 0px 10px;
   position: relative;
-
+  overflow-y:auto;
 }
 
 /*
@@ -94,4 +94,38 @@ body {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+
+
+
+#username-save-container {
+  background-color: #fbf7f5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#username-save-container input {
+  margin-right: 20px;
+}
+
+#username-save-container button {
+  width: 50px;
+  background-color: #ffb347;
+  border: none;
+}
+
+.header-container {
+  margin-top: 70px;
+  margin-bottom: 12px;
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hide-container {
+  display: none !important;
 }

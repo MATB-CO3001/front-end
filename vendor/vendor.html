@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/vendor.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <title>Vendor</title>
 </head>
 
@@ -18,14 +19,20 @@
     <a class="navbar-brand" href="/vendor/vendor.html">
       BKSCFS
     </a>
-    <a class="navbar-brand" href="#">
-      Xin chào, Vendorabc
+    <a id="welcome" class="navbar-brand" href="/vendor/vendor.html" onclick="logout()">
+      Xin chào, 
     </a>
   </nav>
-  <div class="container" class="d-flex justify-content-center">
+
+  <div id="username-save-container">
+    <input id="username-input" type="username" placeholder="Username..." required />
+    <button onclick="saveUsernameToLocalStorage()">Save</button>
+  </div>
+
+  <div id="content-container" class="container" class="d-flex justify-content-center">
 
     <div class="sidenav">
-      <a href="/vendor/vendor.html?type=food">Danh sách món ăn</a>
+      <a  href="/vendor/vendor.html?type=food">Danh sách món ăn</a>
       <a href="/vendor/vendor.html?type=report">Xem báo cáo</a>
     </div>
 
