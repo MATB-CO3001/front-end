@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/index.css">
+
+    <title>SFCS - Staff Login Page</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark" style="z-index: 10;">
+        <a class="navbar-brand" href="#">Xin chào, ABC</a>
+        <a class="navbar-brand" href="#">
+            <span style="font-size: 16px;">Thoát</span> 
+            <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -3px;">
+                <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 0 1 0-.708L10.793 8 8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 1 8z"/>
+                <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0 0 15 13V3a1.5 1.5 0 0 0-1.5-1.5h-8A1.5 1.5 0 0 0 4 3v1.5a.5.5 0 0 0 1 0V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 5 13v-1.5a.5.5 0 0 0-1 0V13a1.5 1.5 0 0 0 1.5 1.5h8z"/>
+            </svg>
+        </a>
+    </nav>
+    <div id="inprogress-order-list" class="split right">
+      <div class="title">
+        <h2>Đơn hàng đang được chuẩn bị</h2>
+      </div>
+      <ul class="order-container" id="inprogress-list">
+        <li class="order">
+          <div class="general-info">
+            <div class="order-date">
+              12:00 PM 
+              <br> 
+              02/07/2020</div>
+            <div class="order-info">
+              Mã đơn hàng: <span style="font-weight: 700;">1111</span>
+              <br>
+              Khách hàng: <span style="font-weight: 700;">1</span>
+            </div>
+            <div class="order-status" align="right">
+              <button type="button" class="btn btn-danger">Đang chờ</button>
+              <button type="button" class="btn btn-light">Chuẩn bị</button>
+            </div>
+          </div>
+          <div class="list-item">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Món ăn</th>
+                  <th scope="col">Số lượng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Cơm củ thịt</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Cơm trứng khủng long</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Cơm củ cà chua</td>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div id="pending-orders-list" class="split left">
+      <div class="title">
+        <h2>Đơn hàng đợi</h2>
+      </div>
+      <ul class="order-container" id="pending-list">
+        <!-- <li class="order">
+          <div class="general-info">
+            <div class="order-date">
+              12:00 PM 
+              <br> 
+              02/07/2020</div>
+            <div class="order-info">
+              Mã đơn hàng: <span style="font-weight: 700;">1111</span>
+              <br>
+              Khách hàng: <span style="font-weight: 700;">1</span>
+            </div>
+            <div class="order-status" align="right">
+              <button type="button" class="btn btn-danger">Đang chờ</button>
+              <button type="button" class="btn btn-light">Chuẩn bị</button>
+            </div>
+          </div>
+          <div class="list-item">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Món ăn</th>
+                  <th scope="col">Số lượng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Cơm củ thịt</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Cơm trứng khủng long</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Cơm củ cà chua</td>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+    <div class="team-credit">
+      Smart Food Court System <br> bởi MATB
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="./js/workspace.js"></script>
+  </body>
+</html>

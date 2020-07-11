@@ -1,0 +1,84 @@
+html, body {
+    background: #f5f5f5;
+}
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 60;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.left {
+    left: 0;
+    border-right: solid 1px rgb(40, 40, 40, 0.3);
+}
+
+.right {
+    right: 0;
+}
+
+.title > h2 {
+    text-align: center;
+}
+
+#pending-orders-list, #inprogress-order-list {
+    padding: 1rem;
+}
+
+.order-container {
+    padding: 1rem 0.85rem 1rem 0;
+}
+
+.order-container > .order {
+    list-style: none;
+    padding: 1rem 1.75rem;
+    margin-top: 1.125rem;
+    background-color: #fafafa;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+}
+
+.order-container > .order:hover {
+    box-shadow: rgb(15, 15, 15, 0.05) 1px 2px 10px;
+}
+
+.order-container > .order > .general-info {
+    display: flex;
+}
+
+.order-container > .order > .general-info > .order-date {
+    width: 15%;
+    opacity: 0.5; 
+    font-size: 0.85rem;
+    margin-top: 0.45rem;
+}
+
+.order-container > .order > .general-info > .order-info {
+    width: 25%;
+}
+
+.order-container > .order > .general-info > .order-status {
+    width: 60%;
+    margin-top: 0.45rem;
+}
+
+.order-container > .order > .general-info > .order-status > .btn {
+    margin: 0 0.5rem;
+    border: 1px solid #e9e9e9;
+}
+
+.order-container > .order > .list-item {
+    margin: 1rem 0.45rem 0 5.75rem;
+}
+
+.team-credit {
+    position: fixed;
+    bottom: 0;
+    padding: 1rem;
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
