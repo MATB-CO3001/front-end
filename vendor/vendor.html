@@ -20,13 +20,17 @@
       BKSCFS
     </a>
     <a id="welcome" class="navbar-brand" href="/vendor/vendor.html" onclick="logout()">
-      Xin chào, 
+      Xin chào, mời đăng nhập
     </a>
   </nav>
 
-  <div id="username-save-container">
-    <input id="username-input" type="username" placeholder="Username..." required />
-    <button onclick="saveUsernameToLocalStorage()">Save</button>
+  <div id="username-container">
+    <div class="input-group mb-3">
+      <input id="username" type="text" class="form-control" placeholder="Tên cửa hàng" aria-label="Vendor name" required />
+      <div class="input-group-append">
+        <button onclick="saveUsernameToLocalStorage()" class="btn btn-primary" type="button">Đăng nhập</button>
+      </div>
+    </div>
   </div>
 
   <div id="content-container" class="container" class="d-flex justify-content-center">
@@ -36,12 +40,11 @@
       <a href="/vendor/vendor.html?type=report">Xem báo cáo</a>
     </div>
 
-    <div id="main">
-      <table class="table table-striped">
+    <div id="main" style="overflow-x: auto">
+      <table id="report-table" class="table table-striped">
       </table>
     </div>
   </div>
-
 
   <script src="js/vendor.js"></script>
 

@@ -4,6 +4,7 @@ body {
   padding: 0;
   /* TODO: update font later */
   font-family: Roboto, sans-serif;
+  background: #f5f5f5;
 }
 
 #container{
@@ -72,7 +73,7 @@ body {
   width: 400px;
   padding: 20px;
   background-color: #f1f1f1;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   border: 1px solid #ffcccc;
   box-shadow: 0px 0px 2px 2px #999999;
   margin: auto;
@@ -87,7 +88,7 @@ body {
 }
 
 .btn-right {
-  
+  margin-left: 5px;
   float: right;
 }
 
@@ -98,34 +99,31 @@ body {
 
 
 
-
-#username-save-container {
-  background-color: #fbf7f5;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#username-container {
+  width: 100%;
+  height: 100vh;
 }
 
-#username-save-container input {
-  margin-right: 20px;
+#username-container > #username-input {
+  margin: 0 auto;
 }
 
-#username-save-container button {
-  width: 50px;
-  background-color: #ffb347;
-  border: none;
-}
-
-.header-container {
-  margin-top: 70px;
-  margin-bottom: 12px;
-  height: 340px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.input-group {
+  width: 40%;
+  margin: 0 auto;
+  top: 45%;
 }
 
 .hide-container {
-  display: none !important;
+  display: none;
+}
+
+.dtHorizontalExampleWrapper {
+  max-width: 200px;
+  margin: 0 auto;
+  }
+#dtHorizontalExample th, td {
+  white-space: nowrap;
+  max-width: 300px;
+  overflow: hidden;
 }

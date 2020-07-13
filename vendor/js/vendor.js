@@ -1,26 +1,16 @@
-var dummyData1 = [
-  {
-    "date": "05/05/2020",
-    "total": "4000000",
-  },
-  {
-    "date": "06/05/2020",
-    "total": "4000000",
-  },
-  {
-    "date": "06/05/2020",
-    "total": "4000000",
-  },
-];
+const apiUrl = 'https://matb-app.herokuapp.com/api'
+// const apiUrl = 'http://localhost:8080/api'
 
-const usernameSaveContainer = document.getElementById("username-save-container");
+const usernameSaveContainer = document.getElementById("username-container");
 const contentContainer = document.getElementById("content-container");
-const usernameInput = document.getElementById("username-input");
+const usernameInput = document.getElementById("username");
 var foodList;
+var reportList;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const main = document.getElementById('main');
-
+var date = new Date()
+var yearmonth = date.getFullYear() + "-" + ((date.getMonth()<10)?"0":"") + (date.getMonth()+1)
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!checkUsernameInLocalStorage()) {
@@ -31,16 +21,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       fetchVendorData();
     } else 
       if (type == "report") {
-        fetchReport();
+        var yearmonthVar = urlParams.get('yearmonth')
+        if (!yearmonthVar) {
+          yearmonthVar = yearmonth
+        }
+        fetchReport(yearmonthVar);
       }
   }
 });
 
-
 const fetchVendorData = () => {
   axios({
     method: 'get',
-    url: 'https://matb-app.herokuapp.com/api/vendor/'+localStorage.getItem("username")
+    url: apiUrl + '/vendor/'+localStorage.getItem("username")
   })
     .then(function (response) {
       foodList = response.data.foodList.sort(dynamicSort("name"))
@@ -50,18 +43,19 @@ const fetchVendorData = () => {
 
 const showVendor = (data) => {
   var requestListInnerHtml = `
-  <thead>
-    <tr>
-      <th scope="col">STT</th>
-      <th scope="col">Tên món ăn</th>
-      <th scope="col">Giá</th>
-      <th scope="col">Hình ảnh</th>
-      <th scope="col">Trạng thái</th>
-      <td><button class="btn-right" onclick="popupCreateFood()">Tạo món ăn</button></td>
-    </tr>
-  </thead>`;
+  <table id="dtHorizontalExample" id="report-table" class="table table-striped" style="width:auto">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th >Tên món ăn</th>
+        <th>Giá</th>
+        <th>Hình ảnh</th>
+        <th>Trạng thái</th>
+        <th><button class="btn-right" onclick="popupCreateFood()">Tạo món ăn</button></th>
+      </tr>
+    </thead>`;
   requestListInnerHtml += `
-  <tbody>` 
+    <tbody>` 
   var i = 0;
   data.forEach((item) => {
     i++;
@@ -72,52 +66,70 @@ const showVendor = (data) => {
         <td>${item.image}</td>
         <td>${(item.state == "AVAILABLE"? "Còn hàng":"Hết hàng")}</td>
         <td>
-          <button class="btn-right" onclick="popupFoodEdit()">Chỉnh sửa</button>   
-          <button class="btn-right" onclick="deleteFood()">Xóa</button>                         
+          <div style="display: flex; float:right;">   
+            <button class="btn-right" onclick="deleteFood()">Xóa</button>  
+            <button class="btn-right" onclick="popupFoodEdit()">Chỉnh sửa</button>
+          <div>                       
         </td>
       </tr>`;
   });
   requestListInnerHtml += `
-  </tbody>`
-  main.childNodes[1].innerHTML = requestListInnerHtml;
+    </tbody>
+    </table>`
+  main.innerHTML = requestListInnerHtml;
 }
 
-const fetchReport = () => {
+const fetchReport = (yearmonth) => {
   axios({
     method: 'get',
-    url: 'https://matb-app.herokuapp.com/api/vendor/'+localStorage.getItem("username")
+    url: apiUrl + '/vendor/report/'+localStorage.getItem("username")+'/'+yearmonth
   })
     .then(function (response) {
-      foodList = response.data.foodList.sort(dynamicSort("name"))
-      showReport(dummyData1);
+      reportList = response.data
+      showReport(reportList);
     });
 };
 
-const showReport = (data) => {
+const showReport = (data) => {  
   var requestListInnerHtml = `
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Ngày</th>
-      <th scope="col">Tổng</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>`;
+  <table id="report-table" class="table table-striped" style="width:auto">
+    <label for="start">Tháng:</label>
+    <input lang='vi' type="month" id="start" name="start"
+        min="2010-03" value="${(urlParams.get('yearmonth'))?urlParams.get('yearmonth'):yearmonth}"> 
+    <button onclick="filter()">Lọc</button>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Ngày</th>
+        <th>Tổng</th>
+        <th></th>
+      </tr>
+    </thead>`;
   requestListInnerHtml += `
-  <tbody>`
+    <tbody>`
   var i = 0;
   data.forEach((item) => {
     i++;
+    var d = new Date(reportList[0].date);
+    const ye = new Intl.DateTimeFormat('vi', { year: 'numeric' }).format(d)
+    const mo = new Intl.DateTimeFormat('vi', { month: 'short' }).format(d)
+    const da = new Intl.DateTimeFormat('vi', { day: '2-digit' }).format(d)    
     requestListInnerHtml += `
     <th scope="row">${i}</th>
-      <td>${item.date}</td>
+      <td>${`${da}-${mo}-${ye}`}</td>
       <td>${item.total} VNĐ</td>
       <td><button class="btn-right" onclick="popupViewDetail()">Chi tiết</button></td>
     </tr>`;
   });
   requestListInnerHtml += `
-  </tbody>`
-  main.childNodes[1].innerHTML = requestListInnerHtml;
+    </tbody>
+  </table>`
+  main.innerHTML = requestListInnerHtml;
+}
+
+function filter() {
+  var monthInput = document.getElementById('start')
+  location.href = location.href.split('report')[0]+'report&yearmonth='+monthInput.value
 }
 
 function createFood(e) {
@@ -131,7 +143,7 @@ function createFood(e) {
 
   axios({
     method: 'post',
-    url: 'https://matb-app.herokuapp.com/api/vendor/'+localStorage.getItem("username"),
+    url: apiUrl + '/vendor/'+localStorage.getItem("username"),
     headers: {
       'Content-Type': 'application/json'
     },
@@ -155,7 +167,7 @@ function updateFood() {
   });
   axios({
     method: 'put',
-    url: 'https://matb-app.herokuapp.com/api/vendor/food/' + document.getElementById('foodid').value,
+    url: apiUrl + '/vendor/food/' + document.getElementById('foodid').value,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -169,23 +181,20 @@ function updateFood() {
       console.log(error);
     });
 }
-
+var aa
 function deleteFood(e) {
-  var target = foodList[parseInt(getEventTarget(e).parentElement.parentElement.childNodes[0].innerHTML-1)].id
+  var target = foodList[parseInt(getEventTarget(e).parentElement.parentElement.parentElement.childNodes[0].innerHTML-1)].id
   axios({
     method: 'delete',
-    url: 'https://matb-app.herokuapp.com/api/vendor/food/'+target,
+    url: apiUrl + '/vendor/food/'+target,
   })
   .then(function (response) {
     fetchVendorData();
   })
   .catch(function (error) {
     console.log(error);
-  });
-  
+  });  
 }
-
-
 
 const getEventTarget = (e) => {
   e = e || window.event;
@@ -194,7 +203,7 @@ const getEventTarget = (e) => {
 
 const popupFoodEdit = (e) => {
   let target = getEventTarget(e);
-  let foodRow = target.parentElement.parentElement;
+  let foodRow = target.parentElement.parentElement.parentElement;
   var popupContainer = document.createElement("div");
   popupContainer.classList.add('popup-container');
 
@@ -210,7 +219,7 @@ const popupFoodEdit = (e) => {
         <hr>
         <form class="form-horizontal" role="form">
           <div style="visibility: hidden; position: absolute" class="form-group">
-            <label class="col-lg-3 control-label">ID</label>
+            <label class="col-lg-3 control-label">STT</label>
             <div class="col-lg-8">
               <input class="form-control" id="foodid" type="text" value="${foodList[index].id}">
             </div>
@@ -256,7 +265,6 @@ const popupFoodEdit = (e) => {
   document.getElementsByTagName('BODY')[0].appendChild(popupContainer);
   document.getElementById("state").selectedIndex = foodList[index].state == "AVAILABLE"? 0:1
 }
-
 
 const popupCreateFood = (e) => {
   let target = getEventTarget(e);
@@ -310,6 +318,7 @@ const popupCreateFood = (e) => {
 const popupViewDetail = (e) => {
   let target = getEventTarget(e);
   let foodRow = target.parentElement.parentElement;
+  var index = parseInt(foodRow.childNodes[0].innerText)-1
   var popupContainer = document.createElement("div");
   popupContainer.classList.add('popup-container');
 
@@ -323,30 +332,25 @@ const popupViewDetail = (e) => {
   popup.classList.add("table");
   popup.classList.add("table-striped");
   popup.innerHTML = `<thead>
-  <tr>
-    <th scope="col">ID</th>
-    <th scope="col">Tên</th>
-    <th scope="col">Số lượng</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td>Cơm củ thịt</td>
-    <td>100</td>
-  </tr>
-  <tr>
-    <th scope="row">2</th>
-    <td>Cơm cục gà</td>
-    <td>100</td>
-  </tr>
-  <tr>
-    <th scope="row">3</th>
-    <td>Cơm trứng khủng long</td>
-    <td>100</td>
-  </tr>
-</tbody>
-  `
+    <tr>
+      <th scope="col">STT</th>
+      <th scope="col">Tên</th>
+      <th scope="col">Số lượng</th>
+    </tr>
+  </thead>
+  <tbody>`
+  var i = 0
+  reportList[index].reportList.forEach((item) => {
+    i++;
+    popup.innerHTML+=`<tr>
+      <th scope="row">${i}</th>
+      <td>${item.food.name}</td>
+      <td>${item.quantity}</td>
+    </tr>`
+  })
+  
+  popup.innerHTML+=`
+    </tbody>`
   popupContainer.appendChild(popup);
   var ss = document.getElementsByClassName("popup-container")[0]
   if (ss)
@@ -362,7 +366,6 @@ const deletePopupFoodEdit = (e) => {
 const deletePopupAfterSave = (e) => {
   let target = getEventTarget(e);
   document.getElementsByClassName("popup-container")[0].remove();
-
 }
 
 function dynamicSort(property) {
