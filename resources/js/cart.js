@@ -1,12 +1,12 @@
 var navHeight = document.getElementById('nav-bar').clientHeight;
 
-// $(document).ready(function() {
-//     $('.purchase-btn').each(function(){ 
-//         $(this).css({
-//             'margin-bottom' : navHeight + 'px' 
-//         });
-//     });
-// });
+$(document).ready(function() {
+    $('.purchase-btn').each(function(){ 
+        $(this).css({
+            'margin-bottom' : navHeight + 'px' 
+        });
+    });
+});
 
 if (document.readyState == 'loading') {
     document.addEventListener('DOMContentLoaded', ready);
@@ -27,31 +27,10 @@ function ready() {
         input.addEventListener('change', quantityChanged);
     }
 
-    var addToCartButtons = document.getElementsByClassName('modify-btn');
-    for (var i = 0; i < addToCartButtons.length; i++) {
-        var button = addToCartButtons[i];
-        button.addEventListener('click', addToCartClicked);
-    }
-
     document.getElementsByClassName('purchase-btn')[0].addEventListener('click', purchaseClicked);
 }
 
 function purchaseClicked() {
-    // $(document).ready(function(){
-    //     let btn = document.getElementsByClassName('purchase-btn');
-    //     ok.addEventListener('click', () => {
-    //         $.post("demo_test_post.asp",
-    //             {
-    //                 foodName: 'Cơm canh rồng ',
-    //                 foodDesc: 'Cá trứng muối tiêu',
-    //                 price: 20000,
-    //                 image: 'resources/image/2.jpg'
-    //             },
-    //             function(status){
-    //                 alert("\nStatus: " + status);
-    //         });
-    //     });
-    // });
     alert('Thank you for your purchase');
     var cartItems = document.getElementById('cart-items');
     while (cartItems.hasChildNodes()) {
@@ -91,19 +70,25 @@ function addItemToCart(title, price, imageSrc) {
     var cartItemNames = cartItems.getElementsByClassName('cart-item-title');
     for (var i = 0; i < cartItemNames.length; i++) {
         if (cartItemNames[i].innerText == title) {
-            alert('Bạn đẫ thêm món này vào giỏ');
+            alert('Bạn đã thêm món này vào giỏ');
             return;
         }
     }
     var cartRowContents = `
         <div class="cart-item cart-column">
             <img class="cart-item-image" src="${imageSrc}" width="100" height="100">
-            <span class="cart-item-title">${title}</span>
         </div>
-        <span class="cart-price cart-column">${price}</span>
-        <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value="1">
-            <button class="btn btn-danger" type="button">Xoá</button>
+        <div class="cart-column">
+            <span class="cart-item-title">${title}</span>
+            <div class="cart-quantity">
+                <div class="qnty-btn decrease-btn">-</div>
+                <input class="cart-quantity-input" type="number" value="1">
+                <div class="qnty-btn increase-btn">+</div>
+            </div>
+        </div>
+        <div class="cart-column">
+            <span class="cart-price">${price}</span>
+            <button class="btn-danger" type="button">Xoá</button>
         </div>`;
     cartRow.innerHTML = cartRowContents;
     cartItems.append(cartRow);
@@ -121,13 +106,12 @@ function updateCartTotal() {
         var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0];
 
         var price = priceElement.innerText;
-        var price = parseFloat(priceElement.innerText.replace(' VND', ''));
+        var price = parseFloat(priceElement.innerText.replace('đ', ''));
         price = parseFloat(priceElement.innerText.replace(',', ''));
 
         var quantity = quantityElement.value
         total = total + (price * quantity);
     }
     total = Math.round(total * 100) / 100
-    document.getElementsByClassName('cart-total-price')[0].innerText = formatNumber(total) + ' VND';
+    document.getElementsByClassName('cart-total-price')[0].innerText = formatNumber(total) + 'đ';
 }
-
