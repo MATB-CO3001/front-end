@@ -1,4 +1,4 @@
-function createFoodinCourt(wrapper, item) {
+function createFoodinCourt(wrapper, item, state) {
     var cardContent = `
     <div class="card">
         <div class="img-dir">
@@ -6,13 +6,25 @@ function createFoodinCourt(wrapper, item) {
         </div>
         <div class="card-body">
             <h5 class="card-title">${item.name}</h5>
-            <p class="card-price">${formatNumber(item.price)}đ</p>
+            <p class="card-price">${formatNumber(item.price)}đ</p>`;
+            
+    var avail = `
             <a class="btn btn-primary modify-btn">Thêm vào giỏ</a>
         </div>
     </div>`;
 
+    var unavail = `
+            <span class="unavailable">Tạm hết hàng</span>
+        </div>
+    </div>`;
+    
+    if (state != "AVAILABLE") { 
+        cardContent += unavail;
+    } else {
+        cardContent += avail;
+    }
     wrapper.innerHTML += cardContent;
-
+    
     var addToCartButtons = wrapper.getElementsByClassName('modify-btn');
     for (var i = 0; i < addToCartButtons.length; i++) {
         var button = addToCartButtons[i];
@@ -30,15 +42,15 @@ axios({
     console.log(res.status);
 
     res.data.forEach(data => {
-        console.log(data.name);
         const courtFoodList = document.createElement('div');
         courtFoodList.classList.add('food-list');
         
         courtFoodList.innerHTML += `<h3>${data.name}</h3>`;
 
         data.foodList.forEach(foodList => {
-            createFoodinCourt(courtFoodList, foodList);
+            createFoodinCourt(courtFoodList, foodList, foodList.state);
         });
+
 
         container.append(courtFoodList);
     });

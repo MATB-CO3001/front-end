@@ -80,7 +80,9 @@ h1 {
   background-color: #ffffff;
   border: none;
   border-radius: .3em;
-  font-weight: bold;
+  width: auto !important;
+  text-align: left;
+  padding: 0;
 }
 
 .btn-danger:hover {
