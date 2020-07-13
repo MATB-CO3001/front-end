@@ -1,16 +1,17 @@
+const server = 'https://matb-app.herokuapp.com/api'
+
 const pendingList = document.getElementById('pending-list');
 const inprogressList = document.getElementById('inprogress-list');
 
 document.addEventListener("DOMContentLoaded", async() => {
-    fetchPendingOrderList();
-    fetchInprogressOrderList();
-})
+    checkEmailInLocalStorage();
+});
 
 const fetchPendingOrderList = () => {
     const data = '';
     const config = {
         method: 'get',
-        url: 'https://matb-app.herokuapp.com/api/chef/toi-tao-ra-com-ngon/pending',
+        url: server + '/chef/' + localStorage.getItem("current-username") + '/pending',
         headers: { },
         data : data
     };
@@ -22,7 +23,7 @@ const fetchPendingOrderList = () => {
     .catch(function (error) {
         console.log(error);
     });
-}
+};
 
 const displayPendingOrderList = (data) => {
     var pendingInnerHtml = "";
@@ -46,7 +47,6 @@ const displayPendingOrderList = (data) => {
                         </span>
                     </div>
                     <div class="order-status" align="right">
-                        <button type="button" class="btn btn-secondary">Đang chờ</button>
                         <button type="button" class="btn btn-outline-primary" onclick="changeStateToInprogress()">Chuẩn bị</button>
                     </div>
                 </div>
@@ -80,13 +80,13 @@ const displayPendingOrderList = (data) => {
         i++;
     })
     pendingList.innerHTML = pendingInnerHtml;
-}
+};
 
 const fetchInprogressOrderList = () => {
     const data = '';
     const config = {
         method: 'get',
-        url: 'https://matb-app.herokuapp.com/api/chef/toi-tao-ra-com-ngon/inprogress',
+        url: server + '/chef/' + localStorage.getItem("current-username") + '/inprogress',
         headers: { },
         data : data
     };
@@ -98,7 +98,7 @@ const fetchInprogressOrderList = () => {
     .catch(function (error) {
         console.log(error);
     });
-}
+};
 
 const displayInprogressOrderList = (data) => {
     var inprogressInnerHtml = "";
@@ -122,8 +122,7 @@ const displayInprogressOrderList = (data) => {
                         </span>
                     </div>
                     <div class="order-status" align="right">
-                        <button type="button" class="btn btn-primary">Chuẩn bị</button>
-                        <button type="button" class="btn btn-outline-danger" onclick="deliverOrderModal()">Giao đơn</button>
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deliverOrderPopup" onclick="getCartId()">Giao đơn</button>
                     </div>
                 </div>
                 <div class="list-item">
@@ -156,7 +155,7 @@ const displayInprogressOrderList = (data) => {
         i++;
     })
     inprogressList.innerHTML = inprogressInnerHtml;
-}
+};
 
 const getEventTarget = (e) => {
     e = e || window.event;
@@ -170,7 +169,7 @@ const changeStateToInprogress = (e) => {
     var data = JSON.stringify({"cartId": cartId, "newState": 1});
     var config = {
         method: 'post',
-        url: 'https://matb-app.herokuapp.com/api/chef',
+        url: server + '/chef/',
         headers: { 
             'Content-Type': 'application/json'
         },
@@ -186,8 +185,81 @@ const changeStateToInprogress = (e) => {
     .catch(function (error) {
         console.log(error);
     });
-}
+};
 
-const deliverOrderModal = () => {
-    
+let tmpCartId;
+const getCartId = (e) => {
+    const target = getEventTarget(e);
+    tmpCartId = target.parentElement.parentElement.childNodes[3].childNodes[1].innerText;
+};
+
+const changeStateToReady = () => {
+    var data = JSON.stringify({"cartId": tmpCartId, "newState": 2});
+    var config = {
+        method: 'post',
+        url: server + '/chef/',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+        console.log("READY");
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+};
+
+const changeStateToDone = (e) => {
+    var data = JSON.stringify({"cartId": tmpCartId, "newState": 3});
+    var config = {
+        method: 'post',
+        url: server + '/chef/',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+    };
+
+    axios(config)
+    .then(function (response) {
+        fetchInprogressOrderList();
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+};
+
+const usernameSaveContainer = document.getElementById("username-container");
+const contentContainer = document.getElementById("content-container");
+const usernameInput = document.getElementById("username-input");
+
+const checkEmailInLocalStorage = () => {
+    const username = localStorage.getItem("current-username");
+    if (!username) {
+      usernameSaveContainer.classList.remove("hide-container");
+      contentContainer.classList.add("hide-container");
+      return false;
+    } else {
+      usernameSaveContainer.classList.add("hide-container");
+      contentContainer.classList.remove("hide-container");
+      document.getElementById("vendor-name").innerText = "Xin chào, " + username;
+      fetchPendingOrderList();
+      fetchInprogressOrderList();
+      return true;
+    }
+};
+
+const saveEmailToLocalStorage = async () => {
+    const username = usernameInput.value;
+    localStorage.setItem("current-username", username);
+    checkEmailInLocalStorage();
+};
+
+const logout = () => {
+    localStorage.removeItem("current-username");
+    location.reload();
 }
