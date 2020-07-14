@@ -6,6 +6,7 @@ function createFoodinCourt(wrapper, item, state) {
         </div>
         <div class="card-body">
             <h5 class="card-title">${item.name}</h5>
+            <p class="desc-info">Mã hàng: <span class="food-id desc-info">${item.id}</span></p>
             <p class="card-price">${formatNumber(item.price)}đ</p>`;
             
     var avail = `
@@ -45,7 +46,7 @@ axios({
         const courtFoodList = document.createElement('div');
         courtFoodList.classList.add('food-list');
         
-        courtFoodList.innerHTML += `<h3>${data.name}</h3>`;
+        courtFoodList.innerHTML += `<h3 class="vendor-name">${data.name}</h3>`;
 
         data.foodList.forEach(foodList => {
             createFoodinCourt(courtFoodList, foodList, foodList.state);

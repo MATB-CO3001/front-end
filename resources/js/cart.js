@@ -31,7 +31,32 @@ function ready() {
 }
 
 function purchaseClicked() {
-    alert('Thank you for your purchase');
+    var ret= {
+        "customer": "urmom",
+        "orderedFood":[]
+    };
+    var list = document.getElementsByClassName("cart-row");
+    for (let i = 0; i < list.length; i++) {
+        var foodId = list[i].getElementsByClassName("food-id")[0];
+        var qnty = list[i].getElementsByClassName('cart-quantity-input')[0];
+        var Item = {
+            "foodId": foodId.innerText,
+            "quantity": qnty.value
+        };
+        ret.orderedFood[i] = Item;
+        //console.log(cc);
+    }
+    axios({
+        method: 'POST',
+        url: 'https://matb-app.herokuapp.com/api/cart',
+        data: ret
+    })
+    .then((res) => {
+        console.log(res.status);
+    })
+    .catch(err => console.error(err));
+    console.log(ret);
+    alert('Thanh toán thành công, cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.');
     var cartItems = document.getElementById('cart-items');
     while (cartItems.hasChildNodes()) {
         cartItems.removeChild(cartItems.firstChild);
@@ -56,14 +81,17 @@ function quantityChanged(event) {
 function addToCartClicked(event) {
     var button = event.target;
     var shopItem = button.parentElement.parentElement;
+    var vendor = shopItem.parentElement;
+    var vendorName = vendor.getElementsByClassName("vendor-name")[0];
     var title = shopItem.getElementsByClassName('card-title')[0].innerText;
+    var foodId = shopItem.getElementsByClassName("food-id")[0].innerText;
     var price = shopItem.getElementsByClassName('card-price')[0].innerText;
     var imageSrc = shopItem.getElementsByClassName('card-img-top')[0].src;
-    addItemToCart(title, price, imageSrc);
+    addItemToCart(vendorName.innerText, title, foodId, price, imageSrc);
     updateCartTotal();
 }
 
-function addItemToCart(title, price, imageSrc) {
+function addItemToCart(vendorName, title, foodId,price, imageSrc) {
     var cartRow = document.createElement('div');
     cartRow.classList.add('cart-row');
     var cartItems = document.getElementById('cart-items');
@@ -80,6 +108,8 @@ function addItemToCart(title, price, imageSrc) {
         </div>
         <div class="cart-column">
             <span class="cart-item-title">${title}</span>
+            <span class="desc-info">${vendorName}</span>
+            <p class="desc-info">Mã hàng: <span class="food-id desc-info">${foodId}</span></p>
             <div class="cart-quantity">
                 <div class="qnty-btn decrease-btn">-</div>
                 <input class="cart-quantity-input" type="number" value="1">
