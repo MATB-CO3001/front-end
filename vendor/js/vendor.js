@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
   }
 });
-
 const fetchVendorData = () => {
   axios({
     method: 'get',
@@ -37,7 +36,12 @@ const fetchVendorData = () => {
   })
     .then(function (response) {
       foodList = response.data.foodList.sort(dynamicSort("name"))
-      showVendor(foodList);
+      showVendor(foodList);      
+      checkUsernameInLocalStorage();
+    }).catch(function (error) {
+      logout();
+      document.getElementById("login-message").innerText = error.response.data
+      checkUsernameInLocalStorage();
     });
 };
 
@@ -83,15 +87,16 @@ const fetchReport = (yearmonth) => {
   axios({
     method: 'get',
     url: apiUrl + '/vendor/report/'+localStorage.getItem("username")+'/'+yearmonth
-  })
-    .then(function (response) {
+  }).then(function (response) {
       reportList = response.data
       showReport(reportList);
+    }).catch(function (error) {
+      showReport([]);
     });
 };
 
 const showReport = (data) => {  
-  var requestListInnerHtml = `
+  main.innerHTML = `
   <table id="report-table" class="table table-striped" style="width:auto">
     <label for="start">Tháng:</label>
     <input lang='vi' type="month" id="start" name="start"
@@ -104,13 +109,14 @@ const showReport = (data) => {
         <th>Tổng</th>
         <th></th>
       </tr>
-    </thead>`;
-  requestListInnerHtml += `
+    </thead>
+  </table>`;
+  var requestListInnerHtml = `
     <tbody>`
   var i = 0;
   data.forEach((item) => {
     i++;
-    var d = new Date(reportList[0].date);
+    var d = new Date(reportList[i-1].date);
     const ye = new Intl.DateTimeFormat('vi', { year: 'numeric' }).format(d)
     const mo = new Intl.DateTimeFormat('vi', { month: 'short' }).format(d)
     const da = new Intl.DateTimeFormat('vi', { day: '2-digit' }).format(d)    
@@ -122,9 +128,8 @@ const showReport = (data) => {
     </tr>`;
   });
   requestListInnerHtml += `
-    </tbody>
-  </table>`
-  main.innerHTML = requestListInnerHtml;
+    </tbody>`
+  document.getElementById("report-table").innerHTML += requestListInnerHtml;
 }
 
 function filter() {
@@ -158,7 +163,9 @@ function createFood(e) {
     });
 }
 
-function updateFood() {
+function updateFood(e) {
+  let target = getEventTarget(e);
+  target.setAttribute("disabled", false);
   var data = JSON.stringify({
     "name": document.getElementById('name').value,
     "price": parseInt(document.getElementById('price').value),
@@ -217,7 +224,7 @@ const popupFoodEdit = (e) => {
   popup.innerHTML = `
   <h2>Chỉnh sửa món ăn</h2>
         <hr>
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" autocomplete="off">
           <div style="visibility: hidden; position: absolute" class="form-group">
             <label class="col-lg-3 control-label">STT</label>
             <div class="col-lg-8">
@@ -282,7 +289,7 @@ const popupCreateFood = (e) => {
   popup.innerHTML = `
   <h2>Tạo món ăn</h2>
         <hr>
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" autocomplete="off">
           <div class="form-group">
             <label class="col-lg-3 control-label">Tên món ăn</label>
             <div class="col-lg-8">
@@ -400,7 +407,7 @@ const checkUsernameInLocalStorage = () => {
 const saveUsernameToLocalStorage = async () => {
   const username = usernameInput.value;
   localStorage.setItem("username", username);
-  checkUsernameInLocalStorage();
+  fetchVendorData()
 };
 
 const logout = () => {
