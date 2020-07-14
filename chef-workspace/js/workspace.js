@@ -1,4 +1,5 @@
 const server = 'https://matb-app.herokuapp.com/api'
+// const server = 'http://localhost:8080/api'
 
 const pendingList = document.getElementById('pending-list');
 const inprogressList = document.getElementById('inprogress-list');
@@ -263,3 +264,24 @@ const logout = () => {
     localStorage.removeItem("current-username");
     location.reload();
 }
+
+var stompClient = null;
+
+
+$(document).ready(function(){
+	
+	if(stompClient!=null)
+		stompClient.disconnect();
+
+	 var socket = new SockJS('https://matb-app.herokuapp.com/chef-realtime');
+	 stompClient = Stomp.over(socket);
+	//  stompClient.debug = null;
+	 stompClient.connect({}, function (frame) {
+	        stompClient.subscribe('/chef-message', function (data) {
+                fetchPendingOrderList()
+                console.log(data)
+	        });
+	    });
+	
+	 
+});
