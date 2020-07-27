@@ -50,6 +50,10 @@ h5, p {
   text-align: center;
 }
 
+.cart-btn {
+  color: #F27127;
+}
+
 .food-list {
   margin: 42px 12px;
 }
@@ -83,6 +87,8 @@ h5, p {
 .unavailable {
   color: #dc3545;
   font-size: 1.2em;
+  position: absolute; /*absolute to card*/
+  bottom: 1em;
 }
 
 a.btn.btn-primary {

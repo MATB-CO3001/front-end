@@ -32,31 +32,35 @@ function ready() {
 
 function purchaseClicked() {
     var ret= {
-        "customer": "urmom",
-        "orderedFood":[]
+        "customer": "urex",
+        "orderedFoodList":[]
     };
     var list = document.getElementsByClassName("cart-row");
     for (let i = 0; i < list.length; i++) {
         var foodId = list[i].getElementsByClassName("food-id")[0];
         var qnty = list[i].getElementsByClassName('cart-quantity-input')[0];
-        var Item = {
+        var item = {
             "foodId": foodId.innerText,
             "quantity": qnty.value
         };
-        ret.orderedFood[i] = Item;
+        ret.orderedFoodList[i] = item;
         //console.log(cc);
     }
-    axios({
-        method: 'POST',
-        url: 'https://matb-app.herokuapp.com/api/cart',
-        data: ret
-    })
-    .then((res) => {
-        console.log(res.status);
-    })
-    .catch(err => console.error(err));
+    if (ret.orderedFoodList.length > 0) {
+        axios({
+            method: 'POST',
+            url: 'https://matb-app.herokuapp.com/api/cart',
+            data: ret
+        })
+        .then((res) => {
+            console.log(res.status);
+            alert('Thanh toán thành công, cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.');
+        })
+        .catch(err => console.error(err));
+    } else {
+        alert('Wow, such empty');
+    }
     console.log(ret);
-    alert('Thanh toán thành công, cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.');
     var cartItems = document.getElementById('cart-items');
     while (cartItems.hasChildNodes()) {
         cartItems.removeChild(cartItems.firstChild);
