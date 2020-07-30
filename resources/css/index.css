@@ -1,5 +1,6 @@
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+    color: #f2f2f2
 }
 
 #court-logo {
@@ -33,7 +34,7 @@ h5, p {
 }
 
 .active .nav-link {
-  color: #007bff;
+    color: #F27127;
 }
 
 .bi {
@@ -42,7 +43,7 @@ h5, p {
 }
 
 .active .bi {
-  color: #007bff;
+    color: #F27127;
 }
 
 .modify-item {
@@ -101,12 +102,66 @@ a.btn.btn-primary {
 }
 
 .modify-btn {
-  position: absolute;
-  bottom: 10px;
-  padding-top: 0.5em;
+    position: absolute;
+    bottom: 10px;
 }
 
-.btn:hover {
-  background-color: #dc3545; 
-  border-color: #dc3545;
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+#register-form,
+#log-in-form,
+#hello-user {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+}
+
+.form-title {
+    padding-bottom: 1.25rem;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #F28A2E;
+    border: 1px solid #F27127;
+}
+
+.submit-btn:hover,
+.submit-btn:active {
+    background-color: #F28A2E;
+    border: 1px solid #F27127;
+}
+
+.bottom-text {
+    color: #6c757d;
+    padding-top: 0.5rem;
+    font-size: 0.925rem;
+}
+
+.change-form-btn {
+    border: none;
+    background: none;
+    color: #F27127;
+    font-weight: 500;
+}
+
+#logout-btn {
+    border: none;
+    background: none;
+    padding-left: 0;
+    padding-top: 0.55rem;
+    color: #6c757d;
+    font-size: 0.925rem;
+}
+
+.warning {
+    border: 1px solid #ff4500;
 }
