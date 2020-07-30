@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Gusteau's",
+        "state": "ACTIVE",
+        "foodList": [
+        {
+            "name": "Rau củ hầm",
+            "price": 20000,
+            "image": "./resources/image/1_1.jpg",
+            "id": 1
+        },
+        {
+            "name": "Pate gan ngỗng xông khói",
+            "price": 30000,
+            "image": "./resources/image/1_2.jpg",
+            "id": 2
+        }]
+    },
+    {
+        "id": 2,
+        "name": "Cơm ở đây",
+        "state": "ACTIVE",
+        "foodList": [
+        {
+            "name": "Pate gan ngỗng xông khói",
+            "price": 30000,
+            "image": "./resources/image/1_2.jpg",
+            "id": 2
+        }]
+    }
+]
