@@ -8,42 +8,52 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/index.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <title>Smart Food Court System - MATB</title>
   </head>
   <body>
-    <div id="form-container">
+    <div id="hello-user">
+      <h2 id="greeting"></h2>
+      <h5>Happy shopping!</h5>
+      <br>
+      <button id="logout-btn" onclick="Logout()">Logout</button>
+    </div>
+    <div id="form-container" class="d-none">
         <div id="log-in-form">
-          <h2 class="form-title">Log in</h2>
+          <h2 class="form-title">Đăng nhập</h2>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="exampleInputEmail1">Tên người dùng</label>
+            <input type="email" class="form-control" id="login-username" aria-describedby="emailHelp" placeholder="Nhập tên">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label for="exampleInputPassword1">Mật khẩu</label>
+            <input type="password" class="form-control" id="login-password" placeholder="Nhập mật khẩu">
+            <small id="confirm-password" class="form-text text-muted d-none">Tên tài khoản hoặc mật khẩu không đúng!</small>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <p class="bottom-text">Don't have an account? <button onclick="changeForm()" class="change-form-btn">Register</button></p>
+          <button type="submit" class="btn btn-primary submit-btn" onclick="Login()">Đăng nhập</button>
+          <p class="bottom-text">Chưa có tài khoản? <button onclick="changeForm()" class="change-form-btn">Đăng kí</button></p>
         </div>
-        <div id="register-form">
-          <h2 class="form-title">Register</h2>
+        <div id="register-form" class="d-none">
+          <h2 class="form-title">Đăng kí</h2>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="exampleInputEmail1">Tên người dùng</label>
+            <input type="email" class="form-control" id="register-username" aria-describedby="emailHelp" placeholder="Nhập tên">
+            <small id="confirm-username" class="form-text text-muted d-none">Tên người dùng đã tồn tại.</small>
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label for="exampleInputPassword1">Mật khẩu</label>
+            <input type="password" class="form-control" id="register-password" placeholder="Nhập mật khẩu">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+            <label for="exampleInputPassword1">Xác nhận mật khẩu</label>
+            <input type="password" class="form-control" id="re-password" placeholder="Nhập lại mật khẩu">
+            <small id="confirm-password" class="form-text text-muted d-none">Mật khẩu không khớp!</small>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
+          <button type="submit" class="btn btn-primary submit-btn" onclick="Register()">Đăng kí</button>
+          <p class="bottom-text">Đã có tài khoản? <button onclick="changeForm()" class="change-form-btn">Đăng nhập</button></p>
+        </div>
+    </div>
     <!-- Insert History Here -->
     <div id="nav-bar">
       <ul class="nav justify-content-center">
@@ -74,7 +84,7 @@
             <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
             <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
           </svg>
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" href="user-auth.html">Login</a>
         </li>
       </ul>
     </div>
@@ -89,5 +99,6 @@
     <script src="resources/js/courtsList.js"></script>
     <script src="resources/js/foodsList.js"></script>
     <script src="resources/js/disableAutoScrollingCarousel.js"></script>
+    <script src="resources/js/user-auth.js"></script>
   </body>
 </html>
