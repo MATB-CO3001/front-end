@@ -27,37 +27,41 @@
 // }
 
 /*----------------Scroll Cart------------------*/
-function smoothScroll(target, duration) {
-    var target = document.querySelector(target);
-    var targetPos = target.getBoundingClientRect().top;
-    var startPos = window.pageYOffset;
-    var distance = targetPos - startPos;
-    var startTime = null;
+// function smoothScroll( duration) {
+//     var cart = document.getElementsByClassName("cart")[0];
+//     var targetPos = cart.getBoundingClientRect().top;
+//     var startPos = window.pageYOffset;
+//     var distance = targetPos - startPos;
+//     var startTime = null;
 
-    function animation(currentTime){
-        if(startTime === null) {
-            startTime = currentTime;
-        }
-        var elapsedTime = currentTime - startTime;
-        var run = ease (elapsedTime, startPos, distance, duration);
-        window.scrollTo(0, run);
-        if(elapsedTime < duration) {
-            requestAnimationFrame(animation);    
-        }
-    }
+//     function animation(currentTime){
+//         if(startTime === null) {
+//             startTime = currentTime;
+//         }
+//         var elapsedTime = currentTime - startTime;
+//         //var run = ease (elapsedTime, startPos, distance, duration);
+//         window.scrollTo(0, targetPos);
+//         if(elapsedTime < duration) {
+//             requestAnimationFrame(animation);    
+//         }
+//     }
 
-    function ease(t, b, c, d) {
-        t /= d/2;
-        if (t < 1) return c/2*t*t + b;
-        t--;
-        return -c/2 * (t*(t-2) - 1) + b;
-    }
+//     function ease(t, b, c, d) {
+//         t /= d/2;
+//         if (t < 1) return c/2*t*t + b;
+//         t--;
+//         return -c/2 * (t*(t-2) - 1) + b;
+//     }
 
-    requestAnimationFrame(animation);    
-}
+//     requestAnimationFrame(animation);    
+// }
 
-var scrollBtn = document.getElementsByClassName("cart-btn")[0];
-var cart = document.getElementsByClassName("cart")[0];
-scrollBtn.addEventListener('click', function(){
-    smoothScroll('.cart', 556);
-});
+// var scrollBtn = document.getElementsByClassName("cart-btn")[0];
+// scrollBtn.addEventListener('click', function(){
+//     smoothScroll( 556);
+// });
+// $(".cart-btn").click(function(){
+//     $("body").animate({
+//         scrollTop: $(".cart").offset().top
+//     }, 1000);
+// });

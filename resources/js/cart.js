@@ -44,7 +44,6 @@ function purchaseClicked() {
             "quantity": qnty.value
         };
         ret.orderedFoodList[i] = item;
-        //console.log(cc);
     }
     if (ret.orderedFoodList.length > 0) {
         axios({
@@ -128,6 +127,26 @@ function addItemToCart(vendorName, title, foodId,price, imageSrc) {
     cartItems.append(cartRow);
     cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', removeCartItem);
     cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged);
+    qntyBtn = cartRow.getElementsByClassName('qnty-btn');
+    for (let i = 0; i < qntyBtn.length; i++) {  
+        qntyBtn[i].addEventListener('click', modifyQuantity);
+    }
+}
+
+function modifyQuantity(event) {
+    var btn = event.target;
+    console.log(btn.innerText);
+    var qntyBox = btn.parentElement;
+    var input = qntyBox.getElementsByClassName('cart-quantity-input')[0];
+    if(btn.innerText == '+') {
+        input.value++;
+    } else {
+        input.value--;
+        if (input.value <= 0) {
+            input.value = 1;
+        }
+    }
+    updateCartTotal();
 }
 
 function updateCartTotal() {
