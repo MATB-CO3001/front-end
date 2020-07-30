@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 const fetchCustomerHistory = () => {
     axios({
       method: 'get',
-    //   url: apiUrl + 'cart/customer/'+localStorage.getItem("username")
-      url: apiUrl + '/cart/customer/'+'rich-boi'
+       url: apiUrl + '/cart/customer/'+localStorage.getItem("username")
     })
       .then(function (response) {
         carttList = response.data
@@ -77,3 +76,4 @@ const showHistory = (data) => {
     tbodyHistory.innerHTML += requestListInnerHtml;
 
 }
+

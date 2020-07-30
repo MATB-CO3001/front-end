@@ -32,7 +32,7 @@ function ready() {
 
 function purchaseClicked() {
     var ret= {
-        "customer": "urex",
+        "customer": localStorage.getItem("username"),
         "orderedFoodList":[]
     };
     var list = document.getElementsByClassName("cart-row");
