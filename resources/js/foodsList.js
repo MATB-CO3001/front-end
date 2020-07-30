@@ -1,34 +1,68 @@
-function createFoodinCourt(img, foodName, foodDesc, price) {
-    return [
-        '<div class="card">',
-            '<div class="img-dir">',
-                '<img class="card-img-top" src="' + img + '">',
-            '</div>',
-            '<div class="card-body">',
-                '<h5 class="card-title">' + foodName + '</h5>',
-                '<p class="card-text">' + foodDesc + '</p>',
-                '<a class="btn btn-primary modify-btn">' + price + '</a>',
-            '</div>',
-        '</div>'
-    ].join('\n');
+function createFoodinCourt(wrapper, item, state) {
+    var cardContent = `
+    <div class="card">
+        <div class="img-dir">
+            <img class="card-img-top" src="./resources/image/${item.image}">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">${item.name}</h5>
+            <p class="desc-info">Mã hàng: <span class="food-id desc-info">${item.id}</span></p>
+            <p class="card-price">${formatNumber(item.price)}đ</p>`;
+            
+    var avail = `
+            <a class="btn btn-primary modify-btn">Thêm vào giỏ</a>
+        </div>
+    </div>`;
+
+    var unavail = `
+            <span class="unavailable">Tạm hết hàng</span>
+        </div>
+    </div>`;
+    
+    if (state != "AVAILABLE") { 
+        cardContent += unavail;
+    } else {
+        cardContent += avail;
+    }
+    wrapper.innerHTML += cardContent;
+    
+    var addToCartButtons = wrapper.getElementsByClassName('modify-btn');
+    for (var i = 0; i < addToCartButtons.length; i++) {
+        var button = addToCartButtons[i];
+        button.addEventListener('click', addToCartClicked);
+    }
 }
 
 const container = document.getElementById('foods-container');
 
-for (let k = 0; k < NUM_OF_COURTS; k++) {
-    const courtFoodList = document.createElement('div');
-    courtFoodList.setAttribute('class', 'food-list');
-    courtFoodList.setAttribute('id', k);
-    courtFoodList.innerHTML += 
-        '<h3>' + courtInfo.name + '</h3>';
-    for (let i = 0; i < NUM_OF_FOODS_EACH_COURT["COURT" + k]; i++) {
-        let card = createFoodinCourt(
-            foodInfo[k].image, 
-            foodInfo[k].foodName, 
-            foodInfo[k].foodDesc,
-            foodInfo[k].price
-        );
-        courtFoodList.innerHTML += card;
+axios({
+    method: 'GET',
+    url: 'https://matb-app.herokuapp.com/api/vendor'
+})
+.then((res) => {
+    console.log(res.status);
+
+    res.data.forEach(data => {
+        const courtFoodList = document.createElement('div');
+        courtFoodList.classList.add('food-list');
+        
+        courtFoodList.innerHTML += `<h3 class="vendor-name">${data.name}</h3>`;
+
+        data.foodList.forEach(foodList => {
+            createFoodinCourt(courtFoodList, foodList, foodList.state);
+        });
+
+
+        container.append(courtFoodList);
+    });
+})
+.catch(err => console.error(err));
+
+function formatNumber(num) {
+    if (num == 0) {
+        return 0;
+    }     
+    else {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     }
-    container.append(courtFoodList);
 }

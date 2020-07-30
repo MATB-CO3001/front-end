@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js" integrity="sha512-wMmlpbPCY778BJObxSz1tBYZTaz8q6eAJGiQke+r0AtqqgYPfAmwcip5p1HAmWKA7pxcqNeY8hz1mkHgZhqIiQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/index.css">
+
+    <title>SFCS - Staff Login Page</title>
+  </head>
+  <body>
+    <div id="username-container">
+      <div class="input-group mb-3">
+        <input id="username-input" type="text" class="form-control" placeholder="Tên cửa hàng" aria-label="Vendor name" required />
+        <div class="input-group-append">
+          <button onclick="saveEmailToLocalStorage()" class="btn btn-primary" type="button">Đăng nhập</button>
+        </div>
+      </div>
+    </div>
+    <div id="content-container" class="hide-container">
+      <nav class="navbar navbar-dark bg-dark" style="z-index: 10;">
+        <a id="vendor-name" class="navbar-brand" href="#"></a>
+        <a class="navbar-brand" href="#" onclick="logout()">
+            <span style="font-size: 16px;">Thoát</span> 
+            <svg width="18px" height="18px" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -3px;">
+                <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 0 1 0-.708L10.793 8 8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 1 8z"/>
+                <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0 0 15 13V3a1.5 1.5 0 0 0-1.5-1.5h-8A1.5 1.5 0 0 0 4 3v1.5a.5.5 0 0 0 1 0V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 5 13v-1.5a.5.5 0 0 0-1 0V13a1.5 1.5 0 0 0 1.5 1.5h8z"/>
+            </svg>
+        </a>
+      </nav>
+      <div id="inprogress-order-list" class="split right">
+        <div class="title">
+          <h2>Đơn hàng đang được chuẩn bị</h2>
+        </div>
+        <ul class="order-container" id="inprogress-list"></ul>
+      </div>
+      <div id="pending-orders-list" class="split left">
+        <div class="title">
+          <h2>Đơn hàng đợi</h2>
+        </div>
+        <ul class="order-container" id="pending-list"></ul>
+      </div>
+      <div class="modal fade" id="deliverOrderPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Giao đơn hàng</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Chọn <b>Gửi thông báo</b> để thông tin đến khách hàng đã có thể đến bàn phục vụ nhận đơn. 
+              <br>
+              Khi đã hoàn tất việc giao hàng, chọn <b>Hoàn thành</b>.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger" onclick="changeStateToReady()">Gửi thông báo</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="changeStateToDone()">Hoàn thành</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="team-credit">
+      Smart Food Court System <br> bởi MATB
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="./js/workspace.js"></script>
+  </body>
+</html>
