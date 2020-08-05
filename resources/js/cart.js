@@ -8,6 +8,87 @@ $(document).ready(function() {
     });
 });
 
+const CART = {
+    KEY: 'matb2020',
+    contents: [],
+
+    init (){
+        let _contents = localStorage.getItem(CART.KEY);
+        if(_contents){
+            CART.contents = JSON.parse(_contents);
+            for (let i = 0; i < CART.contents.length; i++) {
+                let tmp = CART.contents[i];
+                addItemToCart(tmp.vendor, tmp.itemTitle, tmp.id, tmp.itemPrice, tmp.image, tmp.itemQty);
+                updateCartTotal();
+            }
+        }
+    },
+    async sync(){
+        let _cart = JSON.stringify(CART.contents);
+        await localStorage.setItem(CART.KEY, _cart);
+    },
+    find(id){
+        //find an item in the cart by it's id
+        let match = CART.contents.filter(item=>{
+            if(item.id == id)
+                return true;
+        });
+        if(match && match[0])
+            return match[0];
+    },
+    add(vendorName, title, foodId, price, imageSrc, qty){
+        //add a new item to the cart
+        let obj = {
+            vendor: vendorName,
+            id: foodId,
+            itemTitle: title,
+            itemPrice: price,
+            image: imageSrc,
+            itemQty: qty 
+        };
+        CART.contents.push(obj);
+        //update localStorage
+        CART.sync();
+    },
+    increase(id, qty){
+        //increase the quantity of an item in the cart
+        CART.contents = CART.contents.map(item=>{
+            if(item.id === id)
+                item.itemQty = item.itemQty + qty;
+            return item;
+        });
+        //update localStorage
+        CART.sync()
+    },
+    reduce(id, qty){
+        //reduce the quantity of an item in the cart
+        CART.contents = CART.contents.map(item=>{
+            if(item.id === id)
+                item.itemQty = item.itemQty - qty;
+                if (item.itemQty <= 0) {
+                    item.itemQty = 1;
+                }
+            return item;
+        });
+        CART.sync()
+    },
+    remove(id){
+        //remove an item entirely from CART.contents based on its id
+        CART.contents = CART.contents.filter(item=>{
+            if(item.id !== id)
+                return true;
+        });
+        //update localStorage
+        CART.sync()
+    },
+    empty(){
+        //empty whole cart
+        CART.contents = [];
+        //update localStorage
+        CART.sync()
+    }
+};
+
 if (document.readyState == 'loading') {
     document.addEventListener('DOMContentLoaded', ready);
 } else {
@@ -15,6 +96,7 @@ if (document.readyState == 'loading') {
 }
 
 function ready() {
+    CART.init();
     var removeCartItemButtons = document.getElementsByClassName('btn-danger');
     for (var i = 0; i < removeCartItemButtons.length; i++) {
         var button = removeCartItemButtons[i];
@@ -64,12 +146,15 @@ function purchaseClicked() {
     while (cartItems.hasChildNodes()) {
         cartItems.removeChild(cartItems.firstChild);
     }
+    CART.empty();
     updateCartTotal();
 }
 
 function removeCartItem(event) {
     var buttonClicked = event.target;
     buttonClicked.parentElement.parentElement.remove();
+    var id = buttonClicked.parentElement.parentElement.getElementsByClassName('food-id')[0].innerHTML; 
+    CART.remove(id);
     updateCartTotal();
 }
 
@@ -90,21 +175,25 @@ function addToCartClicked(event) {
     var foodId = shopItem.getElementsByClassName("food-id")[0].innerText;
     var price = shopItem.getElementsByClassName('card-price')[0].innerText;
     var imageSrc = shopItem.getElementsByClassName('card-img-top')[0].src;
-    addItemToCart(vendorName.innerText, title, foodId, price, imageSrc);
+    addItemToCart(vendorName.innerText, title, foodId, price, imageSrc, 1);
+    if(!CART.find(foodId)){
+        CART.add(vendorName.innerText, title, foodId, price, imageSrc, 1);
+    }
     updateCartTotal();
 }
 
-function addItemToCart(vendorName, title, foodId,price, imageSrc) {
+function addItemToCart(vendorName, title, foodId,price, imageSrc, qty) {
     var cartRow = document.createElement('div');
     cartRow.classList.add('cart-row');
     var cartItems = document.getElementById('cart-items');
     var cartItemNames = cartItems.getElementsByClassName('cart-item-title');
     for (var i = 0; i < cartItemNames.length; i++) {
         if (cartItemNames[i].innerText == title) {
-            alert('Bạn đã thêm món này vào giỏ');
+            alert('Bạn đã thêm món ăn vào giỏ');
             return;
         }
     }
+
     var cartRowContents = `
         <div class="cart-item cart-column">
             <img class="cart-item-image" src="${imageSrc}" width="100" height="100">
@@ -115,7 +204,7 @@ function addItemToCart(vendorName, title, foodId,price, imageSrc) {
             <p class="desc-info">Mã hàng: <span class="food-id desc-info">${foodId}</span></p>
             <div class="cart-quantity">
                 <div class="qnty-btn decrease-btn">-</div>
-                <input class="cart-quantity-input" type="number" value="1">
+                <input class="cart-quantity-input" type="number" value="${qty}">
                 <div class="qnty-btn increase-btn">+</div>
             </div>
         </div>
@@ -135,13 +224,15 @@ function addItemToCart(vendorName, title, foodId,price, imageSrc) {
 
 function modifyQuantity(event) {
     var btn = event.target;
-    console.log(btn.innerText);
     var qntyBox = btn.parentElement;
+    var id = btn.parentElement.parentElement.getElementsByClassName('food-id')[0].innerHTML;
     var input = qntyBox.getElementsByClassName('cart-quantity-input')[0];
     if(btn.innerText == '+') {
         input.value++;
+        CART.increase(id, 1);
     } else {
         input.value--;
+        CART.reduce(id, 1);
         if (input.value <= 0) {
             input.value = 1;
         }
