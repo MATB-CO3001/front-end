@@ -48,6 +48,14 @@ const fetchVendorData = () => {
 const showVendor = (data) => {
   var requestListInnerHtml = `
   <table id="dtHorizontalExample" id="report-table" class="table table-striped" style="width:auto">
+    <colgroup>
+      <col width="5%">
+      <col width="40%">
+      <col width="15%">
+      <col width="15%">
+      <col width="15%">
+      <col width="20%">
+    </colgroup>
     <thead>
       <tr>
         <th>STT</th>
