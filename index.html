@@ -69,6 +69,47 @@
         </li>
       </ul>
     </div>
+    <div id="payment-popup" class="d-none">
+      <div class="overlay"></div>
+      <div id="payment-wrapper">
+        <div class="close">
+          <img src="./resources/image/close.png" alt="close">
+        </div>
+        <h2>Chọn hình thức thanh toán</h2>
+        <p>Vui lòng kiểm tra lại thông tin thanh toán tại quầy thu ngân khi tới nhận món</p>
+        <div id="method-wrapper">
+          <label class="pay-method">
+            <input type="checkbox" class="checkbox">
+            <div class="pay-method-inner">
+              <img src="./resources/image/hand.png" alt="">
+              <span class="pay-desc">Thanh toán tại quầy</span>
+            </div>
+          </label>
+          <label class="pay-method">
+            <input type="checkbox" class="checkbox">
+            <div class="pay-method-inner">
+              <img src="./resources/image/Momo.png" alt="">
+              <span class="pay-desc">Thanh toán Momo</span>
+            </div>
+          </label>
+          <label class="pay-method">
+            <input type="checkbox" class="checkbox">
+            <div class="pay-method-inner">
+              <img src="./resources/image/ViettelPay.png" alt="">
+              <span class="pay-desc">Thanh toán ViettelPay</span>
+            </div>
+          </label>
+          <label class="pay-method">
+            <input type="checkbox" class="checkbox">
+            <div class="pay-method-inner">
+              <img src="./resources/image/Mastercard.png" alt="">
+              <span class="pay-desc">Thanh toán Mastercard</span>
+            </div>
+          </label>
+        </div>
+        <a class="btn btn-primary purchase-btn pay-btn">Thanh toán</a>
+      </div>
+    </div>
     <br>
 
     <!-- Optional JavaScript -->
