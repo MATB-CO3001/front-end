@@ -108,8 +108,14 @@ function ready() {
         var input = quantityInputs[i]
         input.addEventListener('change', quantityChanged);
     }
+    document.getElementsByClassName('close')[0].addEventListener('click', togglePopup);
+    document.getElementsByClassName('purchase-btn')[0].addEventListener('click', togglePopup);
+    document.getElementsByClassName('pay-btn')[0].addEventListener('click', purchaseClicked);
+}
 
-    document.getElementsByClassName('purchase-btn')[0].addEventListener('click', purchaseClicked);
+function togglePopup() {
+    var popup = document.getElementById('payment-popup');
+    popup.classList.toggle('d-none');
 }
 
 function purchaseClicked() {
@@ -139,13 +145,15 @@ function purchaseClicked() {
         })
         .catch(err => console.error(err));
     } else {
-        alert('Wow, such empty');
+        alert('Giỏ hàng của bạn đan trống.');
     }
     console.log(ret);
     var cartItems = document.getElementById('cart-items');
     while (cartItems.hasChildNodes()) {
         cartItems.removeChild(cartItems.firstChild);
     }
+    var popup = document.getElementById('payment-popup');
+    popup.classList.toggle('d-none');
     CART.empty();
     updateCartTotal();
 }
