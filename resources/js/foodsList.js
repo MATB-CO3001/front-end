@@ -1,8 +1,11 @@
+vendorCount = 0
+foodCount = 0
 function createFoodinCourt(wrapper, item, state) {
+    foodCount++
     var cardContent = `
     <div class="card">
         <div class="img-dir">
-            <img class="card-img-top" src="./resources/image/${item.image}">
+            <img class="card-img-top" src="./resources/image/${vendorCount}_${foodCount}.jpg">
         </div>
         <div class="card-body">
             <h5 class="card-title">${item.name}</h5>
@@ -43,11 +46,13 @@ axios({
     console.log(res.status);
 
     res.data.forEach(data => {
+        vendorCount++
         const courtFoodList = document.createElement('div');
         courtFoodList.classList.add('food-list');
         
         courtFoodList.innerHTML += `<h3 class="vendor-name">${data.name}</h3>`;
 
+        foodCount = 0
         data.foodList.forEach(foodList => {
             createFoodinCourt(courtFoodList, foodList, foodList.state);
         });
